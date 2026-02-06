@@ -1,0 +1,7 @@
+{
+  "livePreview.defaultPreviewPath": "/",
+  "livePreview.autoRefreshPreview": "On",
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "AI Image Enhancer",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/html/app.py",
+      "console": "integratedTerminal",
+      "justMyCode": true,
+      "cwd": "${workspaceFolder}/html"
+    }
+  ]
+}
