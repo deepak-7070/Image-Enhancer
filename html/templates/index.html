@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Image Enhancer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+<body>
+
+<div class="container">
+  <h1>AI Image Enhancer</h1>
+  <p>Upscale and enhance your images with AI</p>
+  
+  <div class="input-section">
+    <input type="file" id="upload" accept="image/*">
+    <button onclick="enhance()">Enhance</button>
+    <button onclick="downloadImage()" style="display:none;" id="downloadBtn">Download</button>
+  </div>
+
+  <div class="output-section">
+    <div id="singleView">
+      <img id="result" alt="Enhanced image">
+    </div>
+    
+    <div id="comparisonView" style="display:none;">
+      <h2>Before & After Comparison</h2>
+      <div class="comparison-wrapper">
+        <div class="comparison-container">
+          <div class="comparison-side original-side">
+            <img id="originalImg" class="original-img" alt="Original">
+            <span class="side-label">ORIGINAL</span>
+          </div>
+          <div class="comparison-divider">
+            <input type="range" min="0" max="100" value="50" id="slider" class="slider-input" oninput="updateComparison()">
+            <div class="divider-line"></div>
+          </div>
+          <div class="comparison-side enhanced-side">
+            <img id="enhancedImg" class="enhanced-img" alt="Enhanced">
+            <span class="side-label">ENHANCED</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="compareBtn" onclick="toggleComparison(this)" style="display:none;">Show Comparison</button>
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

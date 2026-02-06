@@ -1,138 +1,88 @@
 # AI Image Enhancer
 
-## 🚀 Quick Start for Beginners
+AI-powered web application that upscales and enhances images to 4K resolution with advanced image processing techniques.
 
-### Step 1: Start the Flask Server
-Open a terminal in the `html` folder and run:
+## Features
+
+- 🚀 4K upscaling (3840px width)
+- 🎨 AI-powered enhancement (noise reduction, sharpness, contrast)
+- 🖼️ Before/After comparison slider
+- 📥 Download enhanced images
+- 🌐 Clean web interface
+
+## Quick Start
+
+### 1. Install Dependencies
+
+```bash
+pip install -r requirements.txt
 ```
+
+### 2. Run the Application
+
+**Windows:**
+```bash
+START.bat
+```
+
+**Manual:**
+```bash
+cd html
 python app.py
 ```
 
-You should see:
-```
-Running on http://127.0.0.1:8000
-```
+### 3. Open in Browser
 
-### Step 2: Open in Browser
-Copy and paste this URL in your browser:
-```
-http://127.0.0.1:8000
-```
+Navigate to: `http://127.0.0.1:5000`
 
-### Step 3: Use the App
-1. Click "Choose File" to upload an image
-2. Click "Enhance Image" button
-3. Wait for processing
-4. Click "Download Image" to save the enhanced version
+## Usage
 
-## ⚠️ IMPORTANT FOR LIVE PREVIEW
-
-If you're using VS Code Live Preview, it may open on a different port. Always use:
-```
-http://127.0.0.1:8000
-```
+1. Click "Choose File" and select an image
+2. Click "Enhance" button
+3. Wait for processing (may take a few seconds)
+4. Click "Download" to save the enhanced image
+5. Use "Show Comparison" to see before/after
 
 ## Project Structure
 
 ```
-html/
-├── app.py           # Flask application (runs on port 8000)
-├── enhancer.py      # Image enhancement logic
-├── index.html       # Web interface
-├── style.css        # Styling
-└── script.js        # JavaScript functionality
+Image-Enhancer/
+├── html/
+│   ├── app.py              # Flask server
+│   ├── enhancer.py         # Image processing logic
+│   ├── templates/
+│   │   └── index.html      # Web interface
+│   └── static/
+│       ├── style.css       # Styling
+│       └── script.js       # Frontend logic
+├── uploads/                # Temporary uploaded images
+├── outputs/                # Enhanced images
+├── requirements.txt        # Python dependencies
+├── START.bat              # Windows launcher
+├── .gitignore             # Git ignore rules
+└── README.md              # This file
 ```
 
-## Features
+## Technology Stack
 
-✅ Upload an image
-✅ AI-powered image enhancement (4x upscaling)
-✅ Automatic sharpness and contrast enhancement
-✅ Download the enhanced image
+- **Backend**: Flask, Python 3.x
+- **Image Processing**: OpenCV, Pillow
+- **Frontend**: HTML5, CSS3, JavaScript
 
-## Troubleshooting
+## Enhancement Pipeline
 
-**Q: Live Preview shows errors?**
-A: Ignore Live Preview. Always use: `http://127.0.0.1:8000`
+1. Bilateral filtering (noise reduction)
+2. Lanczos interpolation (4K upscaling)
+3. Unsharp masking (detail enhancement)
+4. CLAHE (adaptive contrast)
+5. Color, brightness, and sharpness adjustments
 
-**Q: Image not enhancing?**
-A: 
-1. Check Flask is running (see terminal)
-2. Open browser console (F12) to see errors
-3. Make sure image file is selected before clicking "Enhance Image"
+## Requirements
 
-**Q: Port already in use?**
-A: Change the port in `app.py` line at the bottom:
-```python
-````markdown
-# AI Image Enhancer
+- Python 3.7+
+- 2GB+ RAM recommended
+- Modern web browser
 
-## 🚀 Quick Start for Beginners
+## License
 
-### Step 1: Start the Flask Server
-Open a terminal in the `html` folder and run:
-```
-python app.py
-```
-
-You should see:
-```
-Running on http://127.0.0.1:5000
-```
-
-### Step 2: Open in Browser
-Copy and paste this URL in your browser:
-```
-http://127.0.0.1:5000
-```
-
-### Step 3: Use the App
-1. Click "Choose File" to upload an image
-2. Click "Enhance Image" button
-3. Wait for processing
-4. Click "Download Image" to save the enhanced version
-
-## ⚠️ IMPORTANT FOR LIVE PREVIEW
-
-If you're using VS Code Live Preview, it may open on a different port. Always use:
-```
-http://127.0.0.1:5000
-```
-
-## Project Structure
-
-```
-html/
-├── app.py           # Flask application (runs on port 5000)
-├── enhancer.py      # Image enhancement logic
-├── index.html       # Web interface (template)
-├── static/          # CSS and JS assets served by Flask
-└── templates/       # Jinja templates
-```
-
-## Features
-
-✅ Upload an image
-✅ AI-powered image enhancement (4x upscaling)
-✅ Automatic sharpness and contrast enhancement
-✅ Download the enhanced image
-
-## Troubleshooting
-
-**Q: Live Preview shows errors?**
-A: Ignore Live Preview. Always use: `http://127.0.0.1:5000`
-
-**Q: Image not enhancing?**
-A: 
-1. Check Flask is running (see terminal)
-2. Open browser console (F12) to see errors
-3. Make sure image file is selected before clicking "Enhance Image"
-
-**Q: Port already in use?**
-A: Change the port in `app.py` line at the bottom:
-```python
-if __name__ == "__main__":
-    app.run(debug=True, port=5000)  # Change 5000 to another number
-```
- 
-````
+MIT License - Feel free to use and modify.
