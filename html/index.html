@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Image Enhancer</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
 <body>
 
 <div class="container">
@@ -44,12 +44,9 @@
     </div>
   </div>
 
-  <button id="compareBtn" onclick="toggleComparison(this)" style="display:none;">Show Comparison</button  http://127.0.0.1:5000>
+  <button id="compareBtn" onclick="toggleComparison(this)" style="display:none;">Show Comparison</button>
 </div>
 
-<script src="script.js"></script>
-<script>
-  const baseUrl = "http://127.0.0.1:5000";
-</script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
