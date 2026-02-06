@@ -2,43 +2,19 @@
 __pycache__/
 *.py[cod]
 *.pyc
-*.pyo
-*.pyd
-
-# C extensions
-*.so
-
-# Distribution / packaging
-build/
-dist/
-*.egg-info/
-.eggs/
 
 # Virtual environments
-.venv/
 venv/
 env/
-ENV/
 
-# Environment files
-.env
-.env.*
+# Uploads and outputs
+uploads/*
+!uploads/.gitkeep
+outputs/*.png
+outputs/*.jpg
+!outputs/.gitkeep
 
-# Uploaded and generated images (don't commit user data)
-uploads/
-outputs/
-
-# Editor and OS files
+# Editor files
 .vscode/
 .idea/
 .DS_Store
-Thumbs.db
-
-# Logs
-*.log
-
-# Testing
-.pytest_cache/
-
-# Jupyter
-.ipynb_checkpoints/

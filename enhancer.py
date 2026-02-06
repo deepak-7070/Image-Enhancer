@@ -4,72 +4,60 @@ import numpy as np
 
 def upscale_image(input_path, output_path):
     try:
-        # Load image using OpenCV first
-        img_cv = cv2.imread(input_path)
-        
-        if img_cv is None:
+        # Load image
+        img = cv2.imread(input_path)
+        if img is None:
             raise ValueError(f"Could not read image from {input_path}")
         
-        h, w = img_cv.shape[:2]
-        print(f"Original image size: {w}x{h}")
+        h, w = img.shape[:2]
+        print(f"Original: {w}x{h}")
         
-        # Step 1: Light denoise to reduce noise while preserving details
-        img_cv = cv2.bilateralFilter(img_cv, 5, 50, 50)
-        print("Light noise reduction applied")
+        # Calculate smart scale (max 2x for quality, or fit to reasonable size)
+        max_dimension = max(w, h)
+        if max_dimension < 1920:
+            scale = 2.0  # 2x upscale for small images
+        else:
+            scale = min(2.0, 3840 / max_dimension)  # Cap at 2x or 4K width
         
-        # Step 2: Upscale to 4K with best quality interpolation
-        target_width = 3840
-        scale_factor = target_width / w
+        new_w = int(w * scale)
+        new_h = int(h * scale)
         
-        new_w = int(w * scale_factor)
-        new_h = int(h * scale_factor)
-        upscaled = cv2.resize(img_cv, (new_w, new_h), interpolation=cv2.INTER_LANCZOS4)
-        print(f"Upscaled image size: {upscaled.shape[1]}x{upscaled.shape[0]}")
+        # High-quality upscaling with INTER_CUBIC (better than LANCZOS for photos)
+        upscaled = cv2.resize(img, (new_w, new_h), interpolation=cv2.INTER_CUBIC)
+        print(f"Upscaled: {new_w}x{new_h}")
         
-        # Step 3: Apply Unsharp Mask for detail enhancement (preserves edges)
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-        upscaled_blurred = cv2.filter2D(upscaled, -1, kernel)
-        upscaled = cv2.addWeighted(upscaled, 1.5, upscaled_blurred, -0.5, 0)
-        print("Unsharp mask applied for detail enhancement")
+        # Gentle noise reduction (preserve details)
+        denoised = cv2.fastNlMeansDenoisingColored(upscaled, None, 3, 3, 7, 21)
         
-        # Step 4: Apply adaptive local contrast enhancement
-        lab = cv2.cvtColor(upscaled, cv2.COLOR_BGR2LAB)
+        # Subtle sharpening with unsharp mask
+        gaussian = cv2.GaussianBlur(denoised, (0, 0), 2.0)
+        sharpened = cv2.addWeighted(denoised, 1.5, gaussian, -0.5, 0)
+        
+        # Gentle contrast enhancement (avoid over-processing)
+        lab = cv2.cvtColor(sharpened, cv2.COLOR_BGR2LAB)
         l, a, b = cv2.split(lab)
         
-        # Apply CLAHE for local contrast and detail visibility
-        clahe = cv2.createCLAHE(clipLimit=2.5, tileGridSize=(8, 8))
+        clahe = cv2.createCLAHE(clipLimit=1.5, tileGridSize=(8, 8))
         l = clahe.apply(l)
         
-        lab = cv2.merge((l, a, b))
-        upscaled = cv2.cvtColor(lab, cv2.COLOR_LAB2BGR)
-        print("Adaptive contrast enhancement applied")
+        enhanced = cv2.merge((l, a, b))
+        enhanced = cv2.cvtColor(enhanced, cv2.COLOR_LAB2BGR)
         
-        # Step 5: Convert to PIL for color enhancements
-        upscaled_rgb = cv2.cvtColor(upscaled, cv2.COLOR_BGR2RGB)
-        pil_img = Image.fromarray(upscaled_rgb)
+        # Convert to PIL for final touches
+        rgb = cv2.cvtColor(enhanced, cv2.COLOR_BGR2RGB)
+        pil_img = Image.fromarray(rgb)
         
-        # Step 6: Strong sharpness for crisp details
-        enhancer = ImageEnhance.Sharpness(pil_img)
-        pil_img = enhancer.enhance(1.5)
+        # Subtle enhancements (avoid over-saturation)
+        pil_img = ImageEnhance.Sharpness(pil_img).enhance(1.1)
+        pil_img = ImageEnhance.Color(pil_img).enhance(1.05)
+        pil_img = ImageEnhance.Contrast(pil_img).enhance(1.05)
         
-        # Step 7: Enhance color vibrancy for attractiveness
-        enhancer = ImageEnhance.Color(pil_img)
-        pil_img = enhancer.enhance(1.2)
-        
-        # Step 8: Moderate brightness boost
-        enhancer = ImageEnhance.Brightness(pil_img)
-        pil_img = enhancer.enhance(1.1)
-        
-        # Step 9: Slight contrast for better definition
-        enhancer = ImageEnhance.Contrast(pil_img)
-        pil_img = enhancer.enhance(1.1)
-        
-        # Step 10: Save in high quality
-        pil_img.save(output_path, quality=95)
-        print(f"Enhanced image saved to {output_path}")
+        # Save with maximum quality
+        pil_img.save(output_path, 'PNG', quality=100, optimize=False)
+        print(f"Saved: {output_path}")
         
     except Exception as e:
-        print(f"Error in upscale_image: {e}")
+        print(f"Error: {e}")
         raise
 
 

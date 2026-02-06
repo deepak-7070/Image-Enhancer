@@ -1,14 +1,15 @@
-# AI Image Enhancer
+# AI Image Enhancer - Web Tool
 
-AI-powered web application that upscales and enhances images to 4K resolution with advanced image processing techniques.
+Beautiful web interface to upscale and enhance images to 4K resolution using AI.
 
 ## Features
 
+- 🎨 Modern, clean web interface
+- 📤 Drag & drop or click to upload
 - 🚀 4K upscaling (3840px width)
-- 🎨 AI-powered enhancement (noise reduction, sharpness, contrast)
-- 🖼️ Before/After comparison slider
-- 📥 Download enhanced images
-- 🌐 Clean web interface
+- 🤖 AI-powered enhancement
+- 💾 One-click save
+- ⚡ Fast processing
 
 ## Quick Start
 
@@ -18,69 +19,84 @@ AI-powered web application that upscales and enhances images to 4K resolution wi
 pip install -r requirements.txt
 ```
 
-### 2. Run the Application
+### 2. Run the Web App
 
-**Windows:**
-```bash
-START.bat
+**Double-click:**
+```
+run.bat
 ```
 
-**Manual:**
+**Or manually:**
 ```bash
 python app.py
 ```
 
-### 3. Open in Browser
+### 3. Use the Tool
 
-Navigate to: `http://127.0.0.1:5000`
+1. Browser opens automatically at http://127.0.0.1:5000
+2. Click or drag & drop an image
+3. Click "Enhance Image"
+4. Wait a few seconds
+5. Click "Save Enhanced Image"
 
-## Usage
+## How It Works
 
-1. Click "Choose File" and select an image
-2. Click "Enhance" button
-3. Wait for processing (may take a few seconds)
-4. Click "Download" to save the enhanced image
-5. Use "Show Comparison" to see before/after
+The tool applies advanced AI enhancement:
+
+1. **Noise Reduction** - Bilateral filtering
+2. **4K Upscaling** - Lanczos interpolation
+3. **Detail Enhancement** - Unsharp masking
+4. **Contrast Boost** - CLAHE algorithm
+5. **Color & Sharpness** - Final polish
 
 ## Project Structure
 
 ```
 Image-Enhancer/
-├── app.py                  # Flask server
-├── enhancer.py             # Image processing logic
+├── app.py               # Flask web server
+├── enhancer.py          # AI enhancement engine
 ├── templates/
-│   └── index.html          # Web interface
-├── static/
-│   ├── style.css           # Styling
-│   └── script.js           # Frontend logic
-├── uploads/                # Temporary uploaded images
-├── outputs/                # Enhanced images
-├── requirements.txt        # Python dependencies
-├── START.bat               # Windows launcher
-├── .gitignore              # Git ignore rules
-└── README.md               # This file
+│   └── index.html       # Web interface
+├── uploads/             # Temporary uploads
+├── outputs/             # Enhanced images
+├── run.bat              # Quick launcher
+├── enhance.py           # CLI version (optional)
+├── enhance.bat          # CLI launcher (optional)
+└── requirements.txt     # Dependencies
 ```
 
-## Technology Stack
+## Two Ways to Use
 
-- **Backend**: Flask, Python 3.x
-- **Image Processing**: OpenCV, Pillow
-- **Frontend**: HTML5, CSS3, JavaScript
+### Web Interface (Recommended)
+```bash
+python app.py
+```
+Beautiful UI with drag & drop
 
-## Enhancement Pipeline
-
-1. Bilateral filtering (noise reduction)
-2. Lanczos interpolation (4K upscaling)
-3. Unsharp masking (detail enhancement)
-4. CLAHE (adaptive contrast)
-5. Color, brightness, and sharpness adjustments
+### Command Line (Alternative)
+```bash
+python enhance.py image.jpg
+```
+Simple CLI for batch processing
 
 ## Requirements
 
 - Python 3.7+
-- 2GB+ RAM recommended
+- 2GB+ RAM
 - Modern web browser
+
+## Supported Formats
+
+- Input: JPG, PNG, BMP, TIFF, WebP
+- Output: PNG (high quality)
+
+## Tips
+
+- Larger images take longer to process
+- Enhanced images are high quality PNG files
+- Original images are never modified
+- Close browser tab when done (server keeps running)
 
 ## License
 
-MIT License - Feel free to use and modify.
+MIT License - Free to use and modify
