@@ -36,7 +36,6 @@ START.bat
 
 Or manually:
 ```bash
-cd html
 python app.py
 ```
 

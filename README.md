@@ -27,7 +27,6 @@ START.bat
 
 **Manual:**
 ```bash
-cd html
 python app.py
 ```
 
@@ -47,20 +46,19 @@ Navigate to: `http://127.0.0.1:5000`
 
 ```
 Image-Enhancer/
-├── html/
-│   ├── app.py              # Flask server
-│   ├── enhancer.py         # Image processing logic
-│   ├── templates/
-│   │   └── index.html      # Web interface
-│   └── static/
-│       ├── style.css       # Styling
-│       └── script.js       # Frontend logic
+├── app.py                  # Flask server
+├── enhancer.py             # Image processing logic
+├── templates/
+│   └── index.html          # Web interface
+├── static/
+│   ├── style.css           # Styling
+│   └── script.js           # Frontend logic
 ├── uploads/                # Temporary uploaded images
 ├── outputs/                # Enhanced images
 ├── requirements.txt        # Python dependencies
-├── START.bat              # Windows launcher
-├── .gitignore             # Git ignore rules
-└── README.md              # This file
+├── START.bat               # Windows launcher
+├── .gitignore              # Git ignore rules
+└── README.md               # This file
 ```
 
 ## Technology Stack
